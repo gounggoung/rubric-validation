@@ -6,6 +6,13 @@ nlp = spacy.load('en_core_web_trf')
 
 filename = input("Enter the file name: ")
 unit_learning_outcomes = []
+bloom_levels = {}
+
+
+
+def read_bloom_verbs(level):
+    with open('blooms\\'+level+'.txt') as verbs:
+        bloom_levels[level] = verbs.readline().split(',')
 
 
 
@@ -19,7 +26,13 @@ with open(filename, newline='') as unit_guide:
             if outcome not in unit_learning_outcomes:
                 unit_learning_outcomes.append(outcome)
 
-
+# Read in bloom levels from text file
+read_bloom_verbs('knowledge')
+read_bloom_verbs('comprehend')
+read_bloom_verbs('apply')
+read_bloom_verbs('analyze')
+read_bloom_verbs('synthesize')
+read_bloom_verbs('evaluate')
 
 for outcome in unit_learning_outcomes:
     for token in nlp(outcome):

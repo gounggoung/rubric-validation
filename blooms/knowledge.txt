@@ -1,0 +1,1 @@
+Count,Read,Define,Recall,Describe,Recite,Draw,Record,Enumerate,Reproduce,Find,Select,Identify,Sequence,Label,State,List,Tell,Match,View,Name,Write,Quote
