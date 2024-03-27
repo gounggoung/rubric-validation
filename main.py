@@ -34,10 +34,14 @@ read_bloom_verbs('analyze')
 read_bloom_verbs('synthesize')
 read_bloom_verbs('evaluate')
 
+
+
 for outcome in unit_learning_outcomes:
     for token in nlp(outcome):
         if token.pos_ == "VERB":
-            print(token.text)
+            for level in bloom_levels:
+                if bloom_levels[level].count(token.text.lower()) > 0:
+                    print(level + ': ' + outcome)
             break
                 
 
