@@ -1,1 +1,1 @@
-Break down,Focus,Characterize,Illustrate,Classify,Infer,Compare,Limit,Contrast,Outline,Correlate,Point out,Debate,Prioritize,Deduce,Recognize,Diagram,Research,Differentiate,Relate,Discriminate,Separate,Distinguish,Subdivide,Examine
+break down,focus,characterize,illustrate,classify,infer,compare,limit,contrast,outline,correlate,point out,debate,prioritize,deduce,recognize,diagram,research,differentiate,relate,discriminate,separate,distinguish,subdivide,examine

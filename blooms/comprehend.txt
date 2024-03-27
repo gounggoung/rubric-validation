@@ -1,1 +1,1 @@
-Classify,Interpret,Cite,Locate,Conclude,Convert,Paraphrase,Describe,Predict,Discuss,Report,Estimate,Restate,Explain,Review,Generalize,Summarize,Give examples,Trace,Illustrate,Understand
+classify,interpret,cite,locate,conclude,convert,paraphrase,describe,predict,discuss,report,estimate,restate,explain,review,generalize,summarize,give examples,trace,illustrate,understand

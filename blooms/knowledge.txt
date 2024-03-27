@@ -1,1 +1,1 @@
-Count,Read,Define,Recall,Describe,Recite,Draw,Record,Enumerate,Reproduce,Find,Select,Identify,Sequence,Label,State,List,Tell,Match,View,Name,Write,Quote
+count,read,define,recall,describe,recite,draw,record,enumerate,reproduce,find,select,identify,sequence,label,state,list,tell,match,view,name,write,quote

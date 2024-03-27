@@ -1,1 +1,1 @@
-Appraise,Interpret,Argue,Judge,Assess,Justify,Choose,Predict,Compare & Contrast,Prioritize,Conclude,Prove,Criticize,Rank,Critique,Rate,Decide,Reframe,Defend,Select,Evaluate,Support
+appraise,interpret,argue,judge,assess,justify,choose,predict,compare & contrast,prioritize,conclude,prove,criticize,rank,critique,rate,decide,reframe,defend,select,evaluate,support
