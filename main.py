@@ -1,6 +1,7 @@
 import csv
 import spacy
 from bloomlevel import Bloom_Level
+from outcome import Outcome
 
 
 nlp = spacy.load('en_core_web_trf')
@@ -12,7 +13,7 @@ bloom_levels = {}
 
 
 def read_bloom_verbs(level, weight):
-    bloom_levels[level] = Bloom_Level('blooms/'+level+'.txt', weight)
+    bloom_levels[level] = Bloom_Level('blooms/'+level+'.txt', level, weight)
 
 
 
@@ -37,16 +38,21 @@ read_bloom_verbs('evaluate', 5)
 read_bloom_verbs('create', 6)
    
 
-for outcome in unit_learning_outcomes:
+outcome_index = 0
+while outcome_index < len(unit_learning_outcomes):
+    outcome = unit_learning_outcomes[outcome_index]
     for token in nlp(outcome):
         if token.pos_ == "VERB":
             for level in bloom_levels:
                 if bloom_levels[level].verb_list.count(token.text.lower()) > 0:
-                    print(level + ': ' + outcome + ' ---- ' + str(bloom_levels[level].weight))
-            break
+                    unit_learning_outcomes[outcome_index] = Outcome(outcome, bloom_levels[level], 1)
+                    # print(level + ': ' + outcome + ' ---- ' + str(bloom_levels[level].weight))
+                    break
+    outcome_index += 1
                 
 
-
+for outcome in unit_learning_outcomes:
+    print(outcome)
 
 
 
