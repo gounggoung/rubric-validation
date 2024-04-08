@@ -10,8 +10,10 @@ class Assessment_Task:
             self.hurdle = False
 
         
-        self.due_date = due_date
+        self.due_date = due_date.split(';')
         self.outcomes = outcomes
 
     def __repr__(self):
-        return "{task_name}     {weighting}     {hurdle}    {due_date}".format(task_name = self.task_name, weighting = self.weighting, hurdle = self.hurdle, due_date = self.due_date)
+        return """{task_name}     {weighting}     {hurdle}    {due_date}
+        
+Outcomes: {outcomes}\n\n""".format(task_name = self.task_name, weighting = self.weighting, hurdle = self.hurdle, due_date = self.due_date, outcomes = self.outcomes)
