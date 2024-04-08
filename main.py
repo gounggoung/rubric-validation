@@ -18,12 +18,14 @@ def read_bloom_verbs(level, weight):
 
 
 # Open CSV containing unit guide information
+# Read all unique outcomes into list
 with open(filename, newline='') as unit_guide:
     unit_guide_reader = csv.DictReader(unit_guide)
     for row in unit_guide_reader:
         assessment_outcomes = str(row['Learning Outcomes']).split(';')
         for outcome in assessment_outcomes:
             outcome = outcome.strip()
+            # Only add unique outcomes not already in the list
             if outcome not in unit_learning_outcomes:
                 unit_learning_outcomes.append(outcome)
 
@@ -47,7 +49,7 @@ while outcome_index < len(unit_learning_outcomes):
         if token.pos_ == "VERB":
             for level in bloom_levels:
                 if bloom_levels[level].verb_list.count(token.text.lower()) > 0:
-                    unit_learning_outcomes[outcome_index] = Outcome(outcome, bloom_levels[level], bloom_levels[level].weight)
+                    unit_learning_outcomes[outcome_index] = Outcome(outcome, bloom_levels[level], bloom_levels[level].weight, outcome_index)
                     break
     outcome_index += 1
                 
