@@ -38,6 +38,8 @@ read_bloom_verbs('evaluate', 5)
 read_bloom_verbs('create', 6)
    
 
+
+# Replace str outcomes with class representation
 outcome_index = 0
 while outcome_index < len(unit_learning_outcomes):
     outcome = unit_learning_outcomes[outcome_index]
@@ -45,8 +47,7 @@ while outcome_index < len(unit_learning_outcomes):
         if token.pos_ == "VERB":
             for level in bloom_levels:
                 if bloom_levels[level].verb_list.count(token.text.lower()) > 0:
-                    unit_learning_outcomes[outcome_index] = Outcome(outcome, bloom_levels[level], 1)
-                    # print(level + ': ' + outcome + ' ---- ' + str(bloom_levels[level].weight))
+                    unit_learning_outcomes[outcome_index] = Outcome(outcome, bloom_levels[level], bloom_levels[level].weight)
                     break
     outcome_index += 1
                 
