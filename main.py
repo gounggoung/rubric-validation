@@ -1,5 +1,6 @@
 import csv
 import spacy
+from bloomlevel import Bloom_Level
 
 
 nlp = spacy.load('en_core_web_trf')
@@ -10,9 +11,8 @@ bloom_levels = {}
 
 
 
-def read_bloom_verbs(level):
-    with open('blooms\\'+level+'.txt') as verbs:
-        bloom_levels[level] = verbs.readline().split(',')
+def read_bloom_verbs(level, weight):
+    bloom_levels[level] = Bloom_Level('blooms/'+level+'.txt', weight)
 
 
 
@@ -26,22 +26,23 @@ with open(filename, newline='') as unit_guide:
             if outcome not in unit_learning_outcomes:
                 unit_learning_outcomes.append(outcome)
 
-# Read in bloom levels from text file
-read_bloom_verbs('knowledge')
-read_bloom_verbs('comprehend')
-read_bloom_verbs('apply')
-read_bloom_verbs('analyze')
-read_bloom_verbs('synthesize')
-read_bloom_verbs('evaluate')
 
 
+# Create bloom levels with their respective weights (higher weight indicates a higher level skill)
+read_bloom_verbs('remember', 1)
+read_bloom_verbs('understand', 2)
+read_bloom_verbs('apply', 3)
+read_bloom_verbs('analyze', 4)
+read_bloom_verbs('evaluate', 5)
+read_bloom_verbs('create', 6)
+   
 
 for outcome in unit_learning_outcomes:
     for token in nlp(outcome):
         if token.pos_ == "VERB":
             for level in bloom_levels:
-                if bloom_levels[level].count(token.text.lower()) > 0:
-                    print(level + ': ' + outcome)
+                if bloom_levels[level].verb_list.count(token.text.lower()) > 0:
+                    print(level + ': ' + outcome + ' ---- ' + str(bloom_levels[level].weight))
             break
                 
 
