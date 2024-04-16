@@ -16,4 +16,13 @@ class Assessment_Task:
     def __repr__(self):
         return """{task_name}     {weighting}     {hurdle}    {due_date}
         
-Outcomes: {outcomes}\n\n""".format(task_name = self.task_name, weighting = self.weighting, hurdle = self.hurdle, due_date = self.due_date, outcomes = self.outcomes)
+""".format(task_name = self.task_name, weighting = self.weighting, hurdle = self.hurdle, due_date = self.due_date)
+    
+    def __eq__(self, other):
+        self.due_date == other.due_date
+    
+    def __ge__(self, other):
+        self.due_date >= other.due_date
+    
+    def __lt__(self, other):
+        self.due_date < other.due_date
