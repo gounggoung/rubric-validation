@@ -76,19 +76,17 @@ for assessment in assessment_tasks:
 # Split each assessment task so that they only have one due date (some tasks are submitted multiple times)
 assessment_len = len(assessment_tasks)
 for i in range(assessment_len):
-    single_date_tasks = []
     assessment = assessment_tasks[0]
     for date in assessment.due_date:
         split_task = Assessment_Task(assessment.task_name, assessment.weighting, assessment.hurdle, date, assessment.outcomes)
         split_task.due_date = int(split_task.due_date[0])
-        single_date_tasks.append(split_task)
+        assessment_tasks.append(split_task)
 
-    assessment_tasks.append(single_date_tasks)
     # Remove the original item after it's been split
     assessment_tasks.pop(0)
 
 # Sort by due date
-assessment_tasks.sort()
+assessment_tasks.sort(key = lambda x: x.due_date)
 
 print(assessment_tasks)
 
