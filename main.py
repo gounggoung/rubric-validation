@@ -96,7 +96,30 @@ unit_learning_outcomes.sort(key = lambda x: x.bloom_weight)
 # i.e. an outcome in the create level should not appear, and be assessed before an outcome assessing the apply level has
 # been checked (though they can appear on the same assessment)
 
-print(unit_learning_outcomes)
+# Check that each subsequent assessment is still assessing lower level skills
+
+for outcome in unit_learning_outcomes:
+    # Ignore assessments until the tested outcome first appears
+    outcome_occurred = False
+    for assessment in assessment_tasks:
+        if outcome_occurred == False and outcome in assessment.outcomes:
+            outcome_occurred = True
+        
+        
+        if outcome_occurred:
+            assessment_contains_level = False
+            for assessment_outcome in assessment.outcomes:
+                if outcome.bloom_weight == assessment_outcome.bloom_weight:
+                    assessment_contains_level = True
+                    break
+            # Should an assessment not contain an outcome of the expected bloom level, a warning is displayed
+            if not assessment_contains_level:
+                print("Warning: Bloom level {bloom_level} does not appear in assessment {assessment}".format(bloom_level = outcome.bloom_level, assessment = assessment.task_name))
+
+
+        # if outcome_occurred and not outcome in assessment.outcomes:
+        #     print("Warning: Outcome {id} does not appear in assessment {assessment}".format(id = outcome.outcome_description, assessment = assessment.task_name))
+            
 
 
 
