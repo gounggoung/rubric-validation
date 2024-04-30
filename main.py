@@ -88,7 +88,15 @@ for i in range(assessment_len):
 # Sort by due date
 assessment_tasks.sort(key = lambda x: x.due_date)
 
-print(assessment_tasks)
+# Sort by bloom weight
+unit_learning_outcomes.sort(key = lambda x: x.bloom_weight)
+
+# All assessments should preferably contain the lowest level of blooms taxonomy (remember), and work their way up, 
+# adding higher level concepts as the semester goes. Bloom levels should be introduced in order of assessment due date
+# i.e. an outcome in the create level should not appear, and be assessed before an outcome assessing the apply level has
+# been checked (though they can appear on the same assessment)
+
+print(unit_learning_outcomes)
 
 
 
