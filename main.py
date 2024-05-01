@@ -113,11 +113,40 @@ for outcome in unit_learning_outcomes:
                 if outcome.bloom_weight == assessment_outcome.bloom_weight:
                     assessment_contains_level = True
                     break
-            # Should an assessment not contain an outcome of the expected bloom level, a warning is displayed
+            # Should an assessment not contain an outcome of the expected bloom level, a warning is created
             if not assessment_contains_level:
                 warning = "Warning: Bloom level {bloom_level} does not appear in assessment {assessment}".format(bloom_level = outcome.bloom_level, assessment = assessment.task_name)
                 if warning not in bloom_warnings:
-                    bloom_warnings.append(warning)    
+                    bloom_warnings.append(warning)
+
+# Check that higher level outcomes aren't tested before one of a lower level appears
+# For example, an outcome assessing create should not appear before one assessing apply
+# The already assessed weights
+
+
+for i in range(len(unit_learning_outcomes)):
+    
+    i_found = False
+    j_found = False
+    for j in range(i+1, len(unit_learning_outcomes)):
+        print(str(unit_learning_outcomes[-(i+1)].bloom_weight) + " " + str(unit_learning_outcomes[-(j+1)].bloom_weight))
+        
+        for assessment in assessment_tasks:
+            for outcome in assessment.outcomes:
+                if outcome.bloom_weight == unit_learning_outcomes[-(i+1)].bloom_weight:
+                    i_found = True
+                elif outcome.bloom_weight == unit_learning_outcomes[-(j+1)].bloom_weight:
+                    j_found = True
+    
+    if i_found and not j_found:
+        print("warning")
+         
+            
+
+    
+    
+
+
 
 
    
