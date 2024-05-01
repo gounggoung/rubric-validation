@@ -124,24 +124,38 @@ for outcome in unit_learning_outcomes:
 # The already assessed weights
 
 
-for i in range(len(unit_learning_outcomes)):
+checked_outcomes = []
+# Prefill list (may be better way to do this)
+for outcome in assessment_tasks[0].outcomes:
+    if outcome.bloom_weight not in checked_outcomes:
+        checked_outcomes.append(outcome.bloom_weight)
+
+for assessment in assessment_tasks:
+    for outcome in assessment.outcomes:
+        bloom_weight = outcome.bloom_weight
+        for checked in checked_outcomes:
+            # print("""
+            #       Checked: {checked}
+            #       bloom_weight: {bloom_weight}
+            #       checked outcomes: {checked_outcomes}
+
+            #     ----------------------------------------------------
+            #       """.format(checked = checked, bloom_weight = bloom_weight, checked_outcomes = checked_outcomes))
+            if bloom_weight < checked and bloom_weight not in checked_outcomes:
+                #TODO append this to list rather than print
+                print("Warning: Bloom level {higher_level} appears before Bloom level {lower_level} in assessment task {assessment}".format     
+                      (higher_level = checked, lower_level = bloom_weight, assessment = assessment.task_name))
+
+
+        if bloom_weight not in checked_outcomes:
+            checked_outcomes.append(bloom_weight)
     
-    i_found = False
-    j_found = False
-    for j in range(i+1, len(unit_learning_outcomes)):
-        print(str(unit_learning_outcomes[-(i+1)].bloom_weight) + " " + str(unit_learning_outcomes[-(j+1)].bloom_weight))
-        
-        for assessment in assessment_tasks:
-            for outcome in assessment.outcomes:
-                if outcome.bloom_weight == unit_learning_outcomes[-(i+1)].bloom_weight:
-                    i_found = True
-                elif outcome.bloom_weight == unit_learning_outcomes[-(j+1)].bloom_weight:
-                    j_found = True
+for warning in bloom_warnings:
+    print(warning)
+
     
-    if i_found and not j_found:
-        print("warning")
-         
-            
+
+      
 
     
     
