@@ -11,6 +11,7 @@ filename = input("Enter the file name: ")
 unit_learning_outcomes = []
 bloom_levels = {}
 assessment_tasks = []
+bloom_warnings = []
 
 
 
@@ -114,11 +115,12 @@ for outcome in unit_learning_outcomes:
                     break
             # Should an assessment not contain an outcome of the expected bloom level, a warning is displayed
             if not assessment_contains_level:
-                print("Warning: Bloom level {bloom_level} does not appear in assessment {assessment}".format(bloom_level = outcome.bloom_level, assessment = assessment.task_name))
+                warning = "Warning: Bloom level {bloom_level} does not appear in assessment {assessment}".format(bloom_level = outcome.bloom_level, assessment = assessment.task_name)
+                if warning not in bloom_warnings:
+                    bloom_warnings.append(warning)    
 
 
-        # if outcome_occurred and not outcome in assessment.outcomes:
-        #     print("Warning: Outcome {id} does not appear in assessment {assessment}".format(id = outcome.outcome_description, assessment = assessment.task_name))
+   
             
 
 
