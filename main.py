@@ -13,6 +13,7 @@ unit_learning_outcomes = []
 bloom_levels = {}
 assessment_tasks = []
 bloom_warnings = []
+rubric_warnings = []
 
 
 
@@ -40,10 +41,11 @@ with open(filename, newline='') as unit_guide:
             if outcome not in unit_learning_outcomes:
                 unit_learning_outcomes.append(outcome)
 
-
 # Open rubric for each assessment (should one exist)
-for assessment in assessment_tasks:
-    assessment.rubric = Rubric(assessment)
+
+for i in range(len(assessment_tasks)):
+    assessment_tasks[i].rubric = Rubric(assessment_tasks[i])
+
                 
 
         
@@ -89,6 +91,7 @@ for i in range(assessment_len):
     for date in assessment.due_date:
         split_task = Assessment_Task(assessment.task_name, assessment.weighting, assessment.hurdle, date, assessment.outcomes)
         split_task.due_date = int(split_task.due_date[0])
+        split_task.rubric = assessment.rubric
         assessment_tasks.append(split_task)
 
     # Remove the original item after it's been split
@@ -96,6 +99,9 @@ for i in range(assessment_len):
 
 # Sort by due date
 assessment_tasks.sort(key = lambda x: x.due_date)
+
+
+
 
 # Sort by bloom weight
 unit_learning_outcomes.sort(key = lambda x: x.bloom_weight)
@@ -126,6 +132,13 @@ for outcome in unit_learning_outcomes:
                 warning = "Warning: Bloom level {bloom_level} does not appear in assessment {assessment}".format(bloom_level = outcome.bloom_level, assessment = assessment.task_name)
                 if warning not in bloom_warnings:
                     bloom_warnings.append(warning)
+
+# Create warning for units that contain no rubric
+for assessment in assessment_tasks:
+    if len(assessment.rubric.rows) == 0:
+        warning = "Warning: {assessment} does not contain a rubric".format(assessment = assessment.task_name)
+        if warning not in rubric_warnings:
+            rubric_warnings.append(warning)
 
 # Check that higher level outcomes aren't tested before one of a lower level appears
 # For example, an outcome assessing create should not appear before one assessing apply
@@ -160,6 +173,9 @@ for assessment in assessment_tasks:
     
 for warning in bloom_warnings:
     print(warning)
+for warning in rubric_warnings:
+    print(warning)
+
 
     
 
