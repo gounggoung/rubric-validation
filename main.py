@@ -3,6 +3,7 @@ import spacy
 from bloomlevel import Bloom_Level
 from outcome import Outcome
 from assessmenttask import Assessment_Task
+from rubric import Rubric
 
 
 nlp = spacy.load('en_core_web_trf')
@@ -42,18 +43,7 @@ with open(filename, newline='') as unit_guide:
 
 # Open rubric for each assessment (should one exist)
 for assessment in assessment_tasks:
-    rubric_name = input("Enter the rubric for " + assessment.task_name + ": ")
-    if rubric_name != "":
-        with open(rubric_name, newline='') as rubric:
-            rubric_reader = csv.DictReader(rubric)
-            field_names = rubric_reader.fieldnames
-
-            for row in rubric_reader:
-                category = row['Category']
-                details = row['Details']
-                grading_scale = {}
-                for grade in field_names[2:]:
-                    grading_scale[grade] = row[grade]
+    assessment.rubric = Rubric(assessment)
                 
 
         
