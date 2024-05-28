@@ -59,8 +59,7 @@ read_bloom_verbs('analyze', 4)
 read_bloom_verbs('evaluate', 5)
 read_bloom_verbs('create', 6)
    
-
-
+print(unit_learning_outcomes)
 # Replace str outcomes with class representation
 outcome_index = 0
 while outcome_index < len(unit_learning_outcomes):
@@ -71,7 +70,15 @@ while outcome_index < len(unit_learning_outcomes):
                 if bloom_levels[level].verb_list.count(token.text.lower()) > 0:
                     unit_learning_outcomes[outcome_index] = Outcome(outcome, bloom_levels[level], bloom_levels[level].weight, outcome_index)
                     break
-    outcome_index += 1
+
+    if type(unit_learning_outcomes[outcome_index]) is str:
+        invalid_outcome = unit_learning_outcomes[outcome_index]
+        unit_learning_outcomes.remove(invalid_outcome)
+        for assessment in assessment_tasks:
+            if assessment.outcomes.count(invalid_outcome) > 0:
+                assessment.outcomes.remove(invalid_outcome)
+    else:
+        outcome_index += 1
 
 # Repalce str represenation of outcomes in assessment task with class version
 for assessment in assessment_tasks:
@@ -175,6 +182,9 @@ for warning in bloom_warnings:
     print(warning)
 for warning in rubric_warnings:
     print(warning)
+
+for outcome in unit_learning_outcomes:
+    print(outcome.outcome_description)
 
 
     
